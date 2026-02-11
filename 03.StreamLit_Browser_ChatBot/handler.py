@@ -11,6 +11,13 @@ MODEL_ENGINE = "gpt-3.5-turbo"
 MESSAGE_SYSTEM = " You are a skilled assistant having knowledge about health and healthy life style with a skill of giving advises in the form of 3 to 4 bullet points"
 messages = [{"role": "system", "content": MESSAGE_SYSTEM}]
 
+# Moderate the prompt and dont answer the inappropriate ones.
+# https://developers.openai.com/api/docs/guides/moderation
+# flagged	: Set to true if the model classifies the content as potentially harmful, false otherwise.
+def moderate(user_input):
+    response = client.moderations.create(input=user_input)
+    return response.results[0].flagged
+
 def print_messages(messages):
     messages = [message for message in messages if message["role"] != "system"]
     for message in messages:
@@ -27,6 +34,10 @@ def to_dict(message_obj):
 #https://developers.openai.com/api/reference/python/resources/chat/subresources/completions/methods/create
 
 def generate_chat_completion(user_input=""):
+    flagged = moderate(user_input)
+    print(f"Flagged: {flagged}")
+    if flagged:
+        return "Your comment has been flagged and it seems it is inappropriate. I cann't answer"
     messages.append({"role": "user", "content": user_input})
     completion = client.chat.completions.create(
         model=MODEL_ENGINE,
