@@ -51,13 +51,20 @@ def generate_response(user_input):
     )
     messages.append(response.choices[0].message)  
     print("\n DEBUG : GENERATE RESPONSE FUNC : --response.choices --" + str(response.choices))  
-    #DEBUG : GENERATE RESPONSE FUNC : --response.choices --[Choice(finish_reason='tool_calls', index=0, logprobs=None, message=ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')]))]
+    '''DEBUG : GENERATE RESPONSE FUNC : --response.choices --[Choice(finish_reason='tool_calls', index=0, logprobs=None, 
+               message=ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, 
+               function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', 
+               function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')]))] '''
     
     print("\n DEBUG : GENERATE RESPONSE FUNC : -- response.choices[0].message -- " + str(response.choices[0].message))
-    #DEBUG : GENERATE RESPONSE FUNC : -- response.choices[0].message -- ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')])
+    ''' DEBUG : GENERATE RESPONSE FUNC : -- response.choices[0].message -- ChatCompletionMessage(content=None, refusal=None, role='assistant', 
+                 annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', 
+                 function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')]) '''
     
     print("\n DEBUG : GENERATE RESPONSE FUNC : -- messages --" + str(messages))
-    # DEBUG : GENERATE RESPONSE FUNC : -- response.choices[0].message -- ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')])
+    ''' DEBUG : GENERATE RESPONSE FUNC : -- response.choices[0].message -- ChatCompletionMessage(content=None, refusal=None, role='assistant', 
+                annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', 
+                function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')]) '''
 
     return response.choices[0].message
 
@@ -107,7 +114,9 @@ def main():
         # Step 1: send the conversation and available functions to GPT
         message_response = generate_response(user_input)
         print("\n DEBUG : MAIN program : message_response " + str(message_response))
-        # DEBUG : MAIN program : message_response ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')])
+        ''' DEBUG : MAIN program : message_response ChatCompletionMessage(content=None, refusal=None, role='assistant', annotations=[], 
+            audio=None, function_call=None, tool_calls=[ChatCompletionMessageFunctionToolCall(id='call_pOXxOzgZz6KflrAhkjyJFeNL', 
+            function=Function(arguments='{"location":"Hyderabad","unit":"celsius"}', name='get_current_weather'), type='function')]) '''
 
         # Step 2: check if GPT wanted to call a function and generate an extended response. See the above mentioned comment
         if message_response.tool_calls is None:
@@ -124,13 +133,21 @@ def main():
             messages=messages,
         )  # get a new response from the model where it can see the function response
         print("\n DEBUG : MAIN program : second_response " + str(second_response))
-        # DEBUG : MAIN program : second_response ChatCompletion(id='chatcmpl-D8Ui4cWWGrTqY9fTUISdP5X1wSTCD', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='The current temperature in Hyderabad, India is 21°C with scattered clouds.', refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=None))], created=1770917044, model='gpt-3.5-turbo-1106', object='chat.completion', service_tier='default', system_fingerprint='fp_208565f510', usage=CompletionUsage(completion_tokens=15, prompt_tokens=82, total_tokens=97, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0)))
+        ''' DEBUG : MAIN program : second_response ChatCompletion(id='chatcmpl-D8Ui4cWWGrTqY9fTUISdP5X1wSTCD', choices=[Choice(finish_reason='stop', 
+            index=0, logprobs=None, message=ChatCompletionMessage(content='The current temperature in Hyderabad, India is 21°C with scattered clouds.', 
+            refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=None))], 
+            created=1770917044, model='gpt-3.5-turbo-1106', object='chat.completion', service_tier='default', system_fingerprint='fp_208565f510', 
+            usage=CompletionUsage(completion_tokens=15, prompt_tokens=82, total_tokens=97, 
+            completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, 
+            rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))) '''
 
         print("\n DEBUG : MAIN program : second_response.choices " + str(second_response.choices))
-        # DEBUG : MAIN program : second_response.choices [Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='The current temperature in Hyderabad, India is 21°C with scattered clouds.', refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=None))]
+        ''' DEBUG : MAIN program : second_response.choices [Choice(finish_reason='stop', index=0, logprobs=None, 
+        message=ChatCompletionMessage(content='The current temperature in Hyderabad, India is 21°C with scattered clouds.', 
+        refusal=None, role='assistant', annotations=[], audio=None, function_call=None, tool_calls=None))] '''
 
         print("\n DEBUG : MAIN program : second_response.choices[0].message.content " + str(second_response.choices[0].message.content))
-        #DEBUG : MAIN program : second_response.choices[0].message.content The current temperature in Hyderabad, India is 21°C with scattered clouds. 
+        ''' DEBUG : MAIN program : second_response.choices[0].message.content The current temperature in Hyderabad, India is 21°C with scattered clouds. '''
 
         print("Bot: " + second_response.choices[0].message.content)
 
