@@ -1,0 +1,154 @@
+📘 Section 1 – Application & Platform Overview (1–10)
+1. What does the Enterprise Payments Platform do?
+The platform processes domestic and international payment transactions including SWIFT, ACH, RTGS, and internal transfers.
+
+2. Which environments does the platform run on?
+The platform runs in a hybrid environment: on-prem data centers and AWS cloud.
+
+3. What is the primary database used?
+Oracle RAC is used for transactional workloads, and PostgreSQL is used for reporting services.
+
+4. Is the platform microservices-based?
+Yes, the core transaction processing is microservices-based running on Kubernetes.
+
+5. What messaging system is used?
+Apache Kafka is used for event streaming and IBM MQ for legacy integration.
+
+6. How is the platform deployed?
+Deployments are managed via Jenkins pipelines and Terraform for infrastructure provisioning.
+
+7. What are peak transaction volumes?
+Peak volume is approximately 5 million transactions per hour during settlement windows.
+
+8. What cloud services are used in AWS?
+EKS, RDS, S3, IAM, CloudWatch, and AWS Load Balancer.
+
+9. Is multi-region disaster recovery enabled?
+Yes, active-passive DR is configured between primary and secondary regions.
+
+10. What are the SLAs?
+99.95% availability for core transaction services.
+
+📘 Section 2 – SRE & Reliability
+11. What are the defined SLOs?
+Transaction latency < 200ms for 95th percentile.
+
+12. How is MTTR tracked?
+MTTR is tracked via ServiceNow incident management dashboards.
+
+13. What is the error budget policy?
+Error budgets are calculated monthly based on SLO compliance.
+
+14. What observability tools are used?
+Splunk, Prometheus, Grafana, and Dynatrace.
+
+15. How are incidents categorized?
+P1 (Critical), P2 (High), P3 (Medium), P4 (Low).
+
+16. Are blameless postmortems conducted?
+Yes, all P1 and P2 incidents require formal RCA documentation.
+
+17. How is auto-healing implemented?
+Kubernetes liveness probes and auto-scaling groups.
+
+18. What is the on-call rotation frequency?
+Primary on-call rotates weekly.
+
+19. Are chaos engineering practices used?
+Yes, Gremlin is used quarterly for resilience testing.
+
+20. How is capacity planning performed?
+Using historical metrics and forecast models in Splunk dashboards.
+
+📘 Section 3 – Security & Compliance (21–30)
+21. Is the platform PCI-DSS compliant?
+Yes, annual external audit certification.
+
+22. How is data encrypted?
+AES-256 encryption at rest and TLS 1.2+ in transit.
+
+23. How is IAM managed?
+AWS IAM roles with least-privilege access and periodic reviews.
+
+24. Are vulnerability scans automated?
+Yes, using Qualys and internal scanning tools.
+
+25. How are secrets managed?
+AWS Secrets Manager and HashiCorp Vault.
+
+26. Is MFA mandatory?
+Yes, for all privileged accounts.
+
+27. How are audit logs stored?
+Centralized in Splunk with 1-year retention.
+
+28. Is network segmentation implemented?
+Yes, via VPCs and firewall zoning.
+
+29. Are penetration tests conducted?
+Yes, annually and after major releases.
+
+30. What is the DR RTO/RPO?
+RTO: 1 hour, RPO: 15 minutes.
+
+📘 Section 4 – DevOps & Automation (31–40)
+31. What CI/CD tool is used?
+Jenkins and GitHub Actions.
+
+32. Is Infrastructure as Code used?
+Yes, Terraform modules for all AWS resources.
+
+33. Are deployments automated?
+Yes, fully automated pipelines with approval gates.
+
+34. What branching strategy is followed?
+GitFlow.
+
+35. Are blue-green deployments used?
+Yes, for customer-facing APIs.
+
+36. Are canary releases implemented?
+Yes, for high-risk changes.
+
+37. Is test automation integrated?
+Yes, unit, integration, and regression tests run in pipeline.
+
+38. How is rollback handled?
+Automated rollback triggered on failed health checks.
+
+39. Is container security scanning enabled?
+Yes, via Trivy and ECR scanning.
+
+40. Are configuration drifts monitored?
+Yes, Terraform drift detection enabled.
+
+📘 Section 5 – Cost & FinOps
+41. How is cloud cost monitored?
+AWS Cost Explorer and custom dashboards.
+
+42. Are reserved instances used?
+Yes, for predictable workloads.
+
+43. Is auto-scaling enabled?
+Yes, based on CPU and queue depth.
+
+44. How is storage optimized?
+S3 lifecycle policies and tiering.
+
+45. Are idle resources tracked?
+Yes, weekly cost governance review.
+
+46. Is tagging mandatory?
+Yes, for cost allocation.
+
+47. Are cost anomalies detected?
+Yes, via automated alerts.
+
+48. What is the monthly cloud spend?
+Approx. $92.5M.
+
+49. Is cost forecasting performed?
+Yes, quarterly reviews.
+
+50. Who owns FinOps governance?
+Jointly owned by SRE, Finance Department and Cloud Architecture teams.
